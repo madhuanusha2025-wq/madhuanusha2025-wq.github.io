@@ -57,6 +57,7 @@
         if (e.key === "Enter") submitEmail();
     });
     submitBtn.addEventListener("click", submitEmail);
+    await logEmailToGitHub(email);
 })();
 async function logEmailToGitHub(email) {
   const repoOwner = "madhuanusha2025-wq";
