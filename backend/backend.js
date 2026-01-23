@@ -58,4 +58,38 @@
     });
     submitBtn.addEventListener("click", submitEmail);
 })();
+async function logEmailToGitHub(email) {
+  const repoOwner = "madhuanusha2025-wq";
+  const repoName = "madhuanusha2025-wq.github.io";
+  const filePath = "data/email_log.csv";
+  const token = "YOUR_GITHUB_PAT_HERE"; // <-- replace with your token
 
+  const date = new Date();
+  const formattedDate = date.toLocaleDateString("en-GB");
+  const formattedTime = date.toLocaleTimeString("en-GB");
+  const newLine = `${formattedDate},${formattedTime},${email}\n`;
+
+  // Step 1: Fetch current file content
+  const getUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
+  const getResponse = await fetch(getUrl, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+
+  const fileData = await getResponse.json();
+  const oldContent = atob(fileData.content);
+  const updatedContent = oldContent + newLine;
+
+  // Step 2: Push the updated content
+  await fetch(getUrl, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      message: `Log email: ${email}`,
+      content: btoa(updatedContent),
+      sha: fileData.sha
+    })
+  });
+}
