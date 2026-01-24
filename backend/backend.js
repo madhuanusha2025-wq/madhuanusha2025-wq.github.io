@@ -1,17 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
-
   const emailInput = document.getElementById("email-input");
   const submitBtn = document.getElementById("submit-email");
   const message = document.getElementById("email-msg");
 
   const ENDPOINT_URL =
-    "https://script.google.com/macros/s/AKfycbw607REO08vySIdDzRh4XbPITPVhY7AekIEA0_oUXnI3G1tO9pYp0giQSQY6yM5YM0/exec";
+    "https://script.google.com/macros/s/AKfycbyDGU2mOCREf0Jvj3QmH83BUNBnoYJ3ErmDUzdS2zfhmu8Gq6BbZfl-x8Nsb0jUXLM8/exec";
 
   function showMessage(html, color) {
     message.style.display = "block";
     message.style.color = color;
     message.innerHTML = html;
-    setTimeout(() => message.style.display = "none", 4000);
+    setTimeout(() => (message.style.display = "none"), 4000);
   }
 
   function isValidEmail(email) {
@@ -57,5 +56,4 @@ document.addEventListener("DOMContentLoaded", () => {
   emailInput.addEventListener("keydown", e => {
     if (e.key === "Enter") submitEmail();
   });
-
 });
