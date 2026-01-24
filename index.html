@@ -7,117 +7,133 @@
 
 <style>
 :root {
-    --rft-primary: #1f3a5f;
-    --rft-secondary: #2f7d6d;
-    --rft-muted: #4b5563;
+  --rft-primary: #1f3a5f;
+  --rft-secondary: #2f7d6d;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #f8fafc;
-    margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f8fafc;
+  margin: 0;
 }
 
 header {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 24px 32px;
-    border-bottom: 2px solid var(--rft-primary);
-    background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 32px;
+  border-bottom: 2px solid var(--rft-primary);
+  background: #fff;
 }
 
 header img {
-    height: 80px;
+  height: 80px;
 }
 
 .tagline {
-    font-size: 14px;
-    color: var(--rft-secondary);
+  font-size: 14px;
+  color: var(--rft-secondary);
 }
 
 main {
-    position: relative;
-    max-width: 960px;
-    margin: 40px auto;
-    padding: 40px;
-    background: #fff;
-    border-radius: 6px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  position: relative;
+  max-width: 960px;
+  margin: 40px auto;
+  padding: 40px;
+  background: #fff;
+  border-radius: 6px;
 }
 
-section {
-    margin-bottom: 40px;
-}
-
-.two-col {
-    display: flex;
-    gap: 40px;
-    flex-wrap: wrap;
-}
-
-.col {
-    flex: 1;
-    min-width: 260px;
-}
-
-/* ===== Email Input Box ===== */
 #email-box {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 280px;
-    padding: 16px;
-    border: 1px solid #e5e7eb;
-    border-radius: 6px;
-    background: #ffffff;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 280px;
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #ffffff;
 }
 
 #email-box h4 {
-    margin: 0 0 10px 0;
-    font-size: 14px;
-    color: var(--rft-primary);
+  margin: 0 0 10px 0;
 }
 
 #email-input {
-    width: 100%;
-    padding: 8px;
-    font-size: 13px;
-    margin-bottom: 8px;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 8px;
 }
 
 #submit-email {
-    padding: 8px 12px;
-    width: 100%;
-    background: var(--rft-secondary);
-    border: none;
-    color: #fff;
-    cursor: pointer;
+  width: 100%;
+  padding: 8px;
+  background: var(--rft-secondary);
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 
 #email-msg {
-    margin-top: 10px;
-    font-size: 12px;
-    display: none;
+  margin-top: 10px;
+  font-size: 12px;
+  display: none;
 }
 </style>
+
+<script>
+function validateForm() {
+  const email = document.getElementById("email-input").value.trim();
+  const msg = document.getElementById("email-msg");
+
+  msg.style.display = "block";
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    msg.style.color = "red";
+    msg.innerText = "Please enter valid email ID";
+    return false;
+  }
+
+  msg.style.color = "black";
+  msg.innerHTML =
+    "Thank you for giving your email ID.<br>" +
+    "<b style='color:green'>support@rftalent.in</b> from " +
+    "<b style='color:green'>rftalent.in</b> will reach out.";
+
+  return true;
+}
+</script>
 </head>
 
 <body>
 
 <header>
-    <img src="RFTlogo.png" alt="RightFitTalent Logo">
-    <p class="tagline">Always Good To Hold The Right Position By Right Person</p>
+  <img src="RFTlogo.png" alt="RightFitTalent Logo">
+  <p class="tagline">Always Good To Hold The Right Position By Right Person</p>
 </header>
 
 <main>
 
 <div id="email-box">
-    <h4>Email Registration</h4>
-    <input type="text" id="email-input" placeholder="Enter your email ID, here">
-    <button id="submit-email">Submit</button>
-    <div id="email-msg"></div>
+  <h4>Email Registration</h4>
+
+  <!-- IMPORTANT: FORM POST -->
+  <form
+    action="https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec"
+    method="POST"
+    onsubmit="return validateForm();"
+  >
+    <input
+      id="email-input"
+      name="email"
+      type="email"
+      placeholder="Enter your email ID here"
+      required
+    >
+    <button id="submit-email" type="submit">Submit</button>
+  </form>
+
+  <div id="email-msg"></div>
 </div>
 
 <section>
@@ -179,65 +195,5 @@ section {
 </section>
 
 </main>
-
-<script>
-const ENDPOINT_URL =
-  "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec";
-
-function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-function submitEmail() {
-    const input = document.getElementById("email-input");
-    const msg = document.getElementById("email-msg");
-    const email = input.value.trim();
-
-    msg.style.display = "block";
-
-    if (!isValidEmail(email)) {
-        msg.style.color = "red";
-        msg.textContent = "Please enter a valid email ID.";
-        hideMessage();
-        return;
-    }
-
-    fetch(ENDPOINT_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email })
-    });
-
-    msg.style.color = "black";
-    msg.innerHTML =
-        "Thank you for sharing your email ID with us.<br>" +
-        "Our support team will communicate only via email from " +
-        "<span style='color:green; font-weight:bold;'>support@rftalent.in</span> " +
-        "and <span style='color:green; font-weight:bold;'>rftalent.in</span>.";
-
-    input.value = "";
-    hideMessage();
-}
-
-function hideMessage() {
-    setTimeout(() => {
-        document.getElementById("email-msg").style.display = "none";
-    }, 2500);
-}
-
-document.getElementById("email-input").addEventListener("keydown", e => {
-    if (e.key === "Enter") submitEmail();
-});
-
-/* ===== Enter key support ===== */
-document.getElementById("email-input").addEventListener("keydown", function (e) {
-    if (e.key === "Enter") {
-        submitEmail();
-    }
-});
-    
-document.getElementById("submit-email").addEventListener("click", submitEmail);
-</script>
-
 </body>
 </html>
