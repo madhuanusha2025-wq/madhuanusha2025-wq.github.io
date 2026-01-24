@@ -1,99 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>RightFitTalent</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<title>RightFitTalent</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #ffffff;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 40px;
-        }
-
-        .header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .tagline {
-            color: #1f6f54;
-            font-size: 16px;
-        }
-
-        .card {
-            margin-top: 30px;
-            padding: 30px;
-            border-radius: 8px;
-            background: #f9f9f9;
-        }
-
-        .email-box {
-            float: right;
-            width: 300px;
-            padding: 20px;
-            background: #ffffff;
-            border-radius: 6px;
-            border: 1px solid #ddd;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-top: 8px;
-            margin-bottom: 10px;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background: #1f6f54;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-
-        #email-msg {
-            display: none;
-            margin-top: 10px;
-            font-size: 14px;
-        }
-    </style>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #ffffff;
+}
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 40px;
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.header img {
+  height: 40px;
+}
+.tagline {
+  color: #1f6f54;
+  font-size: 16px;
+}
+.card {
+  margin-top: 30px;
+  padding: 30px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+.email-box {
+  float: right;
+  width: 300px;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+}
+button {
+  width: 100%;
+  padding: 10px;
+  background: #1f6f54;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+#email-msg {
+  display: none;
+  margin-top: 10px;
+  font-size: 14px;
+}
+</style>
 </head>
 
 <body>
 <div class="container">
-    <div class="header">
-        <strong>RightFitTalent</strong>
-        <span class="tagline">Always Good To Hold The Right Position By Right Person</span>
+
+  <div class="header">
+    <img src="RFTlogo.png" alt="RightFitTalent Logo">
+    <span class="tagline">Always Good To Hold The Right Position By Right Person</span>
+  </div>
+
+  <div class="card">
+    <div class="email-box">
+      <strong>Email Registration</strong>
+      <input id="email-input" type="email" placeholder="Enter your email ID here">
+      <button id="submit-email">Submit</button>
+      <div id="email-msg"></div>
     </div>
 
-    <div class="card">
-        <div class="email-box">
-            <strong>Email Registration</strong>
-            <input type="email" id="email-input" placeholder="Enter your email ID here" />
-            <button id="submit-email">Submit</button>
-            <div id="email-msg"></div>
-        </div>
+    <h2>What RightFitTalent Is</h2>
+    <p>RightFitTalent is a selective engagement initiative.</p>
+    <p>We work at the intersection of employers and talent where fit truly matters.</p>
+    <p>If alignment is missing, we prefer not to proceed.</p>
 
-        <h2>What RightFitTalent Is</h2>
-        <p>RightFitTalent is a selective engagement initiative.</p>
-        <p>We work at the intersection of employers and talent where fit truly matters.</p>
-        <p>If alignment is missing, we prefer not to proceed.</p>
+    <h3>Security & Caution Notice</h3>
+    <p>RightFitTalent acts as a facilitator, not a guarantor.</p>
+    <p>No identity verification or background checks are performed.</p>
+  </div>
 
-        <h3>Security & Caution Notice</h3>
-        <p>RightFitTalent acts as a facilitator, not a guarantor.</p>
-        <p>No identity verification or background checks are performed.</p>
-    </div>
 </div>
 
 <script src="backend.js"></script>
