@@ -1,168 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>RightFitTalent</title>
-<link rel="shortcut icon" href="#">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+function doPost(e) {
+  const SHEET_ID = "1nbvSBpWY_6cexjjdsgwfj7bHUSQVfKzrHbgFwwOXOPc";
+  const SHEET_NAME = "RFT_Email_Collector";
 
-<style>
-:root {
-    --rft-primary: #1f3a5f;
-    --rft-secondary: #2f7d6d;
-}
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #f8fafc;
-    margin: 0;
-}
-header {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 24px 32px;
-    border-bottom: 2px solid var(--rft-primary);
-    background: #fff;
-}
-header img { height: 80px; }
-.tagline { font-size: 14px; color: var(--rft-secondary); }
-main {
-    position: relative;
-    max-width: 960px;
-    margin: 40px auto;
-    padding: 40px;
-    background: #fff;
-    border-radius: 6px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-}
-section { margin-bottom: 40px; }
-.two-col {
-    display: flex;
-    gap: 40px;
-    flex-wrap: wrap;
-}
-.col { flex: 1; min-width: 260px; }
+  const ss = SpreadsheetApp.openById(SHEET_ID);
+  let sheet = ss.getSheetByName(SHEET_NAME);
 
-/* Email Box */
-#email-box {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 280px;
-    padding: 16px;
-    border: 1px solid #e5e7eb;
-    border-radius: 6px;
-    background: #ffffff;
-}
-#email-box h4 {
-    margin: 0 0 10px 0;
-    font-size: 14px;
-    color: var(--rft-primary);
-}
-#email-input {
-    width: 100%;
-    padding: 8px;
-    font-size: 13px;
-    margin-bottom: 8px;
-}
-#submit-email {
-    padding: 8px 12px;
-    width: 100%;
-    background: var(--rft-secondary);
-    border: none;
-    color: #fff;
-    cursor: pointer;
-}
-#email-msg {
-    margin-top: 10px;
-    font-size: 12px;
-    display: none;
-}
-</style>
-</head>
-
-<body>
-
-<header>
-    <img src="RFTlogo.png" alt="RightFitTalent Logo">
-    <p class="tagline">Always Good To Hold The Right Position By Right Person</p>
-</header>
-
-<main>
-
-<div id="email-box">
-    <h4>Email Registration</h4>
-    <input type="text" id="email-input" placeholder="Enter your email ID here">
-    <button id="submit-email">Submit</button>
-    <div id="email-msg"></div>
-</div>
-
-<!-- content unchanged -->
-<section>
-    <h2>What RightFitTalent Is</h2>
-    <p><strong>RightFitTalent is a selective engagement initiative.</strong></p>
-    <p>We work at the intersection of employers and talent where fit truly matters.</p>
-    <p>Our focus is alignment, clarity, and responsibility — not volume or speed.</p>
-    <p>If alignment is missing, we prefer not to proceed.</p>
-</section>
-
-</main>
-
-<script>
-const ENDPOINT_URL =
-  "https://script.google.com/macros/s/AKfycbzCTP7rwt7g2BY9jcFvZfN0mLilEMPdZNLO9L5R5YNsw_z4rI1vwXQGdgU6nc_9rihO/exec";
-
-function isValidEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-function submitEmail() {
-  const input = document.getElementById("email-input");
-  const msg = document.getElementById("email-msg");
-  const email = input.value.trim();
-
-  msg.style.display = "block";
-
-  if (!isValidEmail(email)) {
-    msg.style.color = "red";
-    msg.textContent = "Please enter valid email ID.";
-    hideMessage();
-    return;
+  if (!sheet) {
+    sheet = ss.insertSheet(SHEET_NAME);
+    sheet.appendRow(["DATE", "TIME", "EMAIL"]);
   }
 
-  fetch(ENDPOINT_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: "email=" + encodeURIComponent(email)
-  })
-  .then(() => {
-    msg.style.color = "black";
-    msg.innerHTML =
-      "Thank you for giving your email ID.<br>" +
-      "Our <b style='color:green'>support@rftalent.in</b> will reach out.";
-    input.value = "";
-    hideMessage();
-  })
-  .catch(() => {
-    msg.style.color = "red";
-    msg.textContent = "Network error.";
-    hideMessage();
-  });
+  const email = e.parameter.email;
+  if (!email) {
+    return ContentService.createTextOutput("Missing email");
+  }
+
+  const now = new Date();
+  sheet.appendRow([
+    Utilities.formatDate(now, "Asia/Kolkata", "dd-MM-yyyy"),
+    Utilities.formatDate(now, "Asia/Kolkata", "HH:mm:ss"),
+    email
+  ]);
+
+  GmailApp.sendEmail(
+    email,
+    "Welcome to RightFitTalent",
+    "Thank you for registering. Our support@rftalent.in will reach out."
+  );
+
+  return ContentService
+    .createTextOutput("OK")
+    .setHeader("Access-Control-Allow-Origin", "https://reftalent.in");
 }
-
-function hideMessage() {
-  setTimeout(() => {
-    document.getElementById("email-msg").style.display = "none";
-  }, 3000);
-}
-
-document.getElementById("submit-email").addEventListener("click", submitEmail);
-document.getElementById("email-input").addEventListener("keydown", e => {
-  if (e.key === "Enter") submitEmail();
-});
-</script>
-
-</body>
-</html>
