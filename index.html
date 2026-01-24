@@ -1,72 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>RFT</title>
-<style>
-  body { font-family: Arial; text-align: center; margin-top: 100px; }
-  input { padding: 10px; width: 280px; }
-  button { padding: 10px 20px; margin-left: 5px; }
-  #email-msg { margin-top: 20px; display: none; }
-</style>
+    <meta charset="UTF-8" />
+    <title>RightFitTalent</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 40px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .tagline {
+            color: #1f6f54;
+            font-size: 16px;
+        }
+
+        .card {
+            margin-top: 30px;
+            padding: 30px;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+
+        .email-box {
+            float: right;
+            width: 300px;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #1f6f54;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        #email-msg {
+            display: none;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
 </head>
 
 <body>
+<div class="container">
+    <div class="header">
+        <strong>RightFitTalent</strong>
+        <span class="tagline">Always Good To Hold The Right Position By Right Person</span>
+    </div>
 
-<h2>Welcome to RFT</h2>
+    <div class="card">
+        <div class="email-box">
+            <strong>Email Registration</strong>
+            <input type="email" id="email-input" placeholder="Enter your email ID here" />
+            <button id="submit-email">Submit</button>
+            <div id="email-msg"></div>
+        </div>
 
-<input type="email" id="email-input" placeholder="Enter your email" />
-<button id="submit-email">Submit</button>
+        <h2>What RightFitTalent Is</h2>
+        <p>RightFitTalent is a selective engagement initiative.</p>
+        <p>We work at the intersection of employers and talent where fit truly matters.</p>
+        <p>If alignment is missing, we prefer not to proceed.</p>
 
-<div id="email-msg"></div>
+        <h3>Security & Caution Notice</h3>
+        <p>RightFitTalent acts as a facilitator, not a guarantor.</p>
+        <p>No identity verification or background checks are performed.</p>
+    </div>
+</div>
 
-<script>
-const ENDPOINT_URL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
-
-const emailInput = document.getElementById("email-input");
-const submitBtn = document.getElementById("submit-email");
-const message = document.getElementById("email-msg");
-
-function showMessage(text, color) {
-  message.innerHTML = text;
-  message.style.color = color;
-  message.style.display = "block";
-  setTimeout(() => message.style.display = "none", 4000);
-}
-
-function isValidEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-submitBtn.onclick = async () => {
-  const email = emailInput.value.trim();
-
-  if (!isValidEmail(email)) {
-    showMessage("Please enter Valid email ID", "red");
-    return;
-  }
-
-  submitBtn.disabled = true;
-
-  const res = await fetch(ENDPOINT_URL, {
-    method: "POST",
-    body: JSON.stringify({ email }),
-    headers: { "Content-Type": "application/json" }
-  });
-
-  if (res.ok) {
-    showMessage(
-      "Thank you for giving your email ID. Our support@rftalent.in will reach out to you.",
-      "green"
-    );
-    emailInput.value = "";
-  } else {
-    showMessage("Something went wrong. Try again.", "red");
-  }
-
-  submitBtn.disabled = false;
-};
-</script>
-
+<script src="backend.js"></script>
 </body>
 </html>
