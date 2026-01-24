@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const message = document.getElementById("email-msg");
 
   const ENDPOINT_URL =
-    "https://script.google.com/macros/s/AKfycbx55rbVQ8w1CQJVYPic9IMm_IePToclaKmyjdizGc7uGGtpn79922Y2tc6sYSqqCA5h/exec";
+    "https://script.google.com/macros/s/AKfycbwJMfIsXWfXFTqIevDZL_70GRrRz7aAUTPN5W9g8DVN51acPwmkVfhOwLFgJNG_CviK/exec";
 
   function showMessage(html, color) {
     message.style.display = "block";
