@@ -181,7 +181,7 @@ section {
 
 </main>
 
-<script "https://smtpjs.com/v3/smtp.js>
+<script>
 function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
@@ -199,13 +199,18 @@ function submitEmail() {
         hideMessage();
         return;
     }
-
+    fetch("https://formspree.io/f/xykevpya", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email })
+});
+/*    
     fetch("http://localhost:5000/save", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: email })
     });
-
+*/
     msg.style.color = "black";
     msg.innerHTML =
         "Thank you for sharing your email ID with us.<br>" +
