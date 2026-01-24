@@ -9,7 +9,6 @@
 :root {
     --rft-primary: #1f3a5f;
     --rft-secondary: #2f7d6d;
-    --rft-muted: #4b5563;
 }
 
 body {
@@ -61,7 +60,7 @@ section {
     min-width: 260px;
 }
 
-/* ===== Email Input Box ===== */
+/* Email Box */
 #email-box {
     position: absolute;
     top: 20px;
@@ -101,7 +100,9 @@ section {
     font-size: 12px;
     display: none;
 }
-</style>    
+</style>
+</head>
+
 <body>
 
 <header>
@@ -111,10 +112,9 @@ section {
 
 <main>
 
-<!-- ===== Email Input (Visible Immediately) ===== -->
 <div id="email-box">
     <h4>Email Registration</h4>
-    <input type="text" id="email-input" placeholder="Enter your email ID, here">
+    <input type="text" id="email-input" placeholder="Enter your email ID here">
     <button id="submit-email">Submit</button>
     <div id="email-msg"></div>
 </div>
@@ -178,59 +178,61 @@ section {
 </section>
 
 </main>
+
 <script>
 const ENDPOINT_URL =
-  "https://script.google.com/macros/s/AKfycbwcRJycyjCUCNUVhjGVt2nfPo5yufz74-0qMMdzZJQ14r4nfPYEzoag8ORwSuYjEDcP/exec";
+  "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec";
 
 function isValidEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 function submitEmail() {
-  const input = document.getElementById("email-input");
-  const msg = document.getElementById("email-msg");
-  const email = input.value.trim();
+    const input = document.getElementById("email-input");
+    const msg = document.getElementById("email-msg");
+    const email = input.value.trim();
 
-  msg.style.display = "block";
+    msg.style.display = "block";
 
-  if (!isValidEmail(email)) {
-    msg.style.color = "red";
-    msg.textContent = "Please enter valid email ID.";
-    hideMessage();
-    return;
-  }
+    if (!isValidEmail(email)) {
+        msg.style.color = "red";
+        msg.textContent = "Please enter valid email ID.";
+        hideMessage();
+        return;
+    }
 
-  fetch(ENDPOINT_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email })
-  })
-  .then(() => {
-    msg.style.color = "black";
-    msg.innerHTML =
-      "Thank you for giving your email ID.<br>" +
-      "Our <b style='color:green'>support@rftalent.in</b> from " +
-      "<b style='color:green'>rftalent.in</b> will reach out.";
-    input.value = "";
-    hideMessage();
-  })
-  .catch(() => {
-    msg.style.color = "red";
-    msg.textContent = "Network error.";
-    hideMessage();
-  });
+    fetch(ENDPOINT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+    })
+    .then(() => {
+        msg.style.color = "black";
+        msg.innerHTML =
+            "Thank you for giving your email ID.<br>" +
+            "Our <b style='color:green'>support@rftalent.in</b> from " +
+            "<b style='color:green'>rftalent.in</b> will reach out.";
+        input.value = "";
+        hideMessage();
+    })
+    .catch(() => {
+        msg.style.color = "red";
+        msg.textContent = "Network error.";
+        hideMessage();
+    });
 }
 
 function hideMessage() {
-  setTimeout(() => {
-    document.getElementById("email-msg").style.display = "none";
-  }, 3000);
+    setTimeout(() => {
+        document.getElementById("email-msg").style.display = "none";
+    }, 3000);
 }
 
 document.getElementById("submit-email").addEventListener("click", submitEmail);
 document.getElementById("email-input").addEventListener("keydown", e => {
-  if (e.key === "Enter") submitEmail();
+    if (e.key === "Enter") submitEmail();
 });
 </script>
+
 </body>
 </html>
