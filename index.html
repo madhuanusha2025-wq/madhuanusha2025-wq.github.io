@@ -225,6 +225,12 @@ document.getElementById("submit-email").addEventListener("click", submitEmail);
 document.getElementById("email-input").addEventListener("keydown", e => {
     if (e.key === "Enter") submitEmail();
 });
+document.getElementById("email-input").addEventListener("keydown", function (e) {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    submitEmail();
+  }
+});
 </script>
 
 </body>
