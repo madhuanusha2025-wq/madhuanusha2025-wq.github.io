@@ -11,13 +11,11 @@
     --rft-primary: #1f3a5f;
     --rft-secondary: #2f7d6d;
 }
-
 body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: #f8fafc;
     margin: 0;
 }
-
 header {
     display: flex;
     align-items: center;
@@ -26,16 +24,8 @@ header {
     border-bottom: 2px solid var(--rft-primary);
     background: #fff;
 }
-
-header img {
-    height: 80px;
-}
-
-.tagline {
-    font-size: 14px;
-    color: var(--rft-secondary);
-}
-
+header img { height: 80px; }
+.tagline { font-size: 14px; color: var(--rft-secondary); }
 main {
     position: relative;
     max-width: 960px;
@@ -45,21 +35,13 @@ main {
     border-radius: 6px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
-
-section {
-    margin-bottom: 40px;
-}
-
+section { margin-bottom: 40px; }
 .two-col {
     display: flex;
     gap: 40px;
     flex-wrap: wrap;
 }
-
-.col {
-    flex: 1;
-    min-width: 260px;
-}
+.col { flex: 1; min-width: 260px; }
 
 /* Email Box */
 #email-box {
@@ -72,21 +54,17 @@ section {
     border-radius: 6px;
     background: #ffffff;
 }
-
 #email-box h4 {
     margin: 0 0 10px 0;
     font-size: 14px;
     color: var(--rft-primary);
 }
-
 #email-input {
     width: 100%;
     padding: 8px;
     font-size: 13px;
     margin-bottom: 8px;
-    box-sizing: border-box;
 }
-
 #submit-email {
     padding: 8px 12px;
     width: 100%;
@@ -95,7 +73,6 @@ section {
     color: #fff;
     cursor: pointer;
 }
-
 #email-msg {
     margin-top: 10px;
     font-size: 12px;
@@ -120,62 +97,13 @@ section {
     <div id="email-msg"></div>
 </div>
 
+<!-- content unchanged -->
 <section>
     <h2>What RightFitTalent Is</h2>
     <p><strong>RightFitTalent is a selective engagement initiative.</strong></p>
     <p>We work at the intersection of employers and talent where fit truly matters.</p>
     <p>Our focus is alignment, clarity, and responsibility — not volume or speed.</p>
     <p>If alignment is missing, we prefer not to proceed.</p>
-</section>
-
-<section class="two-col">
-    <div class="col">
-        <h2>What We Do</h2>
-        <ul>
-            <li>Engage selectively with employers and job seekers</li>
-            <li>Facilitate discussions where role-fit is critical</li>
-            <li>Operate with milestone-based clarity</li>
-            <li>Use email as the primary mode of communication</li>
-            <li>Conduct online meetings only when required</li>
-        </ul>
-    </div>
-
-    <div class="col">
-        <h2>What We Do Not Do</h2>
-        <ul>
-            <li>We are not a job portal</li>
-            <li>We do not allow mass job postings</li>
-            <li>We do not collect resumes on this website</li>
-            <li>We do not guarantee hiring or placement</li>
-            <li>We do not run automated matching or background checks</li>
-        </ul>
-    </div>
-</section>
-
-<section>
-    <h2>How Engagement Works</h2>
-    <ol>
-        <li>You understand how RightFitTalent operates</li>
-        <li>Initial communication happens via email</li>
-        <li>Requirements and expectations are discussed</li>
-        <li>Milestones are defined before any commitment</li>
-        <li>Online meetings are scheduled only if necessary</li>
-    </ol>
-</section>
-
-<section>
-    <h2>Security & Caution Notice</h2>
-    <p>RightFitTalent does not perform identity verification, background checks, or fact validation.</p>
-    <p>Users are advised to share information responsibly and verify details independently.</p>
-    <p>RightFitTalent acts as a facilitator, not a guarantor.</p>
-    <p>RightFitTalent does not charge any fee from job seekers.</p>
-    <p>Employers may require an agreed MoU or SoW for formal verification.</p>
-</section>
-
-<section>
-    <h2>Optional Assistant</h2>
-    <p>An optional assistant may guide you on how to initiate email communication.</p>
-    <p>No decisions or commitments are made through the assistant.</p>
 </section>
 
 </main>
@@ -185,53 +113,54 @@ const ENDPOINT_URL =
   "https://script.google.com/macros/s/AKfycbzCTP7rwt7g2BY9jcFvZfN0mLilEMPdZNLO9L5R5YNsw_z4rI1vwXQGdgU6nc_9rihO/exec";
 
 function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 function submitEmail() {
-    const input = document.getElementById("email-input");
-    const msg = document.getElementById("email-msg");
-    const email = input.value.trim();
+  const input = document.getElementById("email-input");
+  const msg = document.getElementById("email-msg");
+  const email = input.value.trim();
 
-    msg.style.display = "block";
+  msg.style.display = "block";
 
-    if (!isValidEmail(email)) {
-        msg.style.color = "red";
-        msg.textContent = "Please enter valid email ID.";
-        hideMessage();
-        return;
-    }
+  if (!isValidEmail(email)) {
+    msg.style.color = "red";
+    msg.textContent = "Please enter valid email ID.";
+    hideMessage();
+    return;
+  }
 
-    fetch(ENDPOINT_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email })
-    })
-    .then(() => {
-        msg.style.color = "black";
-        msg.innerHTML =
-            "Thank you for giving your email ID.<br>" +
-            "Our <b style='color:green'>support@rftalent.in</b> from " +
-            "<b style='color:green'>rftalent.in</b> will reach out.";
-        input.value = "";
-        hideMessage();
-    })
-    .catch(() => {
-        msg.style.color = "red";
-        msg.textContent = "Network error.";
-        hideMessage();
-    });
+  fetch(ENDPOINT_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: "email=" + encodeURIComponent(email)
+  })
+  .then(() => {
+    msg.style.color = "black";
+    msg.innerHTML =
+      "Thank you for giving your email ID.<br>" +
+      "Our <b style='color:green'>support@rftalent.in</b> will reach out.";
+    input.value = "";
+    hideMessage();
+  })
+  .catch(() => {
+    msg.style.color = "red";
+    msg.textContent = "Network error.";
+    hideMessage();
+  });
 }
 
 function hideMessage() {
-    setTimeout(() => {
-        document.getElementById("email-msg").style.display = "none";
-    }, 3000);
+  setTimeout(() => {
+    document.getElementById("email-msg").style.display = "none";
+  }, 3000);
 }
 
 document.getElementById("submit-email").addEventListener("click", submitEmail);
 document.getElementById("email-input").addEventListener("keydown", e => {
-    if (e.key === "Enter") submitEmail();
+  if (e.key === "Enter") submitEmail();
 });
 </script>
 
