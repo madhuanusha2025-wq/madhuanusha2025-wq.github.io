@@ -1,15 +1,15 @@
-Can you please update index.html and accordingly code.gs and give me entire code? <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>RightFitTalent</title>
-<link rel="shortcut icon" href="#">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 :root {
     --rft-primary: #1f3a5f;
     --rft-secondary: #2f7d6d;
+    --rft-muted: #4b5563;
 }
 
 body {
@@ -61,7 +61,7 @@ section {
     min-width: 260px;
 }
 
-/* Email Box */
+/* ===== Email Input Box ===== */
 #email-box {
     position: absolute;
     top: 20px;
@@ -113,9 +113,10 @@ section {
 
 <main>
 
+<!-- ===== Email Input (Visible Immediately) ===== -->
 <div id="email-box">
     <h4>Email Registration</h4>
-    <input type="text" id="email-input" placeholder="Enter your email ID here">
+    <input type="text" id="email-input" placeholder="Enter your email ID, here">
     <button id="submit-email">Submit</button>
     <div id="email-msg"></div>
 </div>
@@ -181,9 +182,6 @@ section {
 </main>
 
 <script>
-const ENDPOINT_URL =
-  "https://script.google.com/macros/s/AKfycbzCTP7rwt7g2BY9jcFvZfN0mLilEMPdZNLO9L5R5YNsw_z4rI1vwXQGdgU6nc_9rihO/exec";
-
 function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
@@ -197,42 +195,42 @@ function submitEmail() {
 
     if (!isValidEmail(email)) {
         msg.style.color = "red";
-        msg.textContent = "Please enter valid email ID.";
+        msg.textContent = "Please enter a valid email ID.";
         hideMessage();
         return;
     }
 
-    fetch(ENDPOINT_URL, {
+    fetch("http://localhost:5000/save", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email })
-    })
-    .then(() => {
-        msg.style.color = "black";
-        msg.innerHTML =
-            "Thank you for giving your email ID.<br>" +
-            "Our <b style='color:green'>support@rftalent.in</b> from " +
-            "<b style='color:green'>rftalent.in</b> will reach out.";
-        input.value = "";
-        hideMessage();
-    })
-    .catch(() => {
-        msg.style.color = "red";
-        msg.textContent = "Network error.";
-        hideMessage();
+        body: JSON.stringify({ email: email })
     });
+
+    msg.style.color = "black";
+    msg.innerHTML =
+        "Thank you for sharing your email ID with us.<br>" +
+        "Our support team will have only email communication with registered email ID from " +
+        "<span style='color:green; font-weight:bold;'>rftsupport@rightfittalent.com</span>.";
+
+    input.value = "";
+    hideMessage();
 }
 
 function hideMessage() {
     setTimeout(() => {
         document.getElementById("email-msg").style.display = "none";
-    }, 3000);
+    }, 2500);
 }
 
-document.getElementById("submit-email").addEventListener("click", submitEmail);
-document.getElementById("email-input").addEventListener("keydown", e => {
-    if (e.key === "Enter") submitEmail();
+/* ===== Enter key support ===== */
+document.getElementById("email-input").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+        submitEmail();
+    }
 });
+
+/* ===== Button click ===== */
+document.getElementById("submit-email").addEventListener("click", submitEmail);
 </script>
 
 </body>
