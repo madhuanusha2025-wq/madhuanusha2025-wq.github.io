@@ -199,10 +199,20 @@ function submitEmail() {
         hideMessage();
         return;
     }
-    fetch("https://formspree.io/f/xykevpya", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email })
+fetch("https://formspree.io/f/xykevpya", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+  },
+  body: JSON.stringify({ email })
+})
+.then(res => {
+  if (!res.ok) throw new Error("failed");
+})
+.catch(() => {
+  document.getElementById("email-msg").textContent =
+    "Submission failed. Try again.";
 });
 /*    
     fetch("http://localhost:5000/save", {
