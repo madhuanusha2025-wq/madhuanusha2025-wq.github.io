@@ -210,16 +210,7 @@ fetch("https://formspree.io/f/xykevpya", {
 })
 .then(res => {
   if (!res.ok) throw new Error("failed");
-})
-.catch(() => {
-  document.getElementById("email-msg").textContent =
-    "Submission failed. Try again.";
-    
-  setTimeout(() => {
-    window.location.reload();
-  }, 1500);
-    
-});
+
     msg.style.color = "black";
     msg.innerHTML =
         "Thank you for sharing your email ID with us.<br>" +
@@ -227,7 +218,16 @@ fetch("https://formspree.io/f/xykevpya", {
         "<span style='color:green; font-weight:bold;'>rftsupport@rightfittalent.com</span>.";
 
     input.value = "";
-    hideMessage();
+    hideMessage();        
+})
+.catch(() => {
+  document.getElementById("email-msg").textContent =
+    "Submission failed. Try again.";    
+});
+    
+  setTimeout(() => {
+    window.location.reload();
+  }, 1500);
 }
 
 function hideMessage() {
