@@ -219,17 +219,18 @@ fetch("https://formspree.io/f/xykevpya", {
 
     input.value = "";
     hideMessage();        
+      setTimeout(() => {
+    window.location.reload();
+  }, 1500);
 })
 .catch(() => {
   document.getElementById("email-msg").textContent =
     "Submission failed. Try again.";    
-});
-    
   setTimeout(() => {
     window.location.reload();
-  }, 1500);
+  }, 1500);    
+});
 }
-
 function hideMessage() {
     setTimeout(() => {
         document.getElementById("email-msg").style.display = "none";
