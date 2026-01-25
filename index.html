@@ -113,11 +113,11 @@ section {
 
 <main>
 
-<!-- ===== Email Input (UI only) ===== -->
+<!-- ===== Email Input (Visible Immediately) ===== -->
 <div id="email-box">
     <h4>Email Registration</h4>
-    <input type="email" id="email-input" placeholder="Enter your email ID, here">
-    <button type="button" id="submit-email">Submit</button>
+    <input type="text" id="email-input" placeholder="Enter your email ID, here">
+    <button id="submit-email">Submit</button>
     <div id="email-msg"></div>
 </div>
 
@@ -180,7 +180,12 @@ section {
 </section>
 
 </main>
-    <script>
+
+<script>
+function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
 function submitEmail() {
     const input = document.getElementById("email-input");
     const msg = document.getElementById("email-msg");
@@ -195,35 +200,20 @@ function submitEmail() {
         return;
     }
 
-    fetch("https://formspree.io/f/xkojekaq", {
+    fetch("https://formspree.io/forms/xykevpya", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify({
-            email: email,
-            _replyto: email,
-            _subject: "Email Registration"
-        })
-    })
-    .then(res => {
-        if (!res.ok) throw new Error();
-
-        msg.style.color = "black";
-        msg.innerHTML =
-            "Thank you for sharing your email ID with us.<br>" +
-            "Our support team will have only email communication with registered email ID from " +
-            "<span style='color:green; font-weight:bold;'>rftsupport@rightfittalent.com</span>.";
-
-        input.value = "";
-        hideMessage();
-    })
-    .catch(() => {
-        msg.style.color = "red";
-        msg.textContent = "Submission failed. Please try again.";
-        hideMessage();
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email })
     });
+
+    msg.style.color = "black";
+    msg.innerHTML =
+        "Thank you for sharing your email ID with us.<br>" +
+        "Our support team will have only email communication with registered email ID from " +
+        "<span style='color:green; font-weight:bold;'>rftsupport@rightfittalent.com</span>.";
+
+    input.value = "";
+    hideMessage();
 }
 
 function hideMessage() {
@@ -241,6 +231,7 @@ document.getElementById("email-input").addEventListener("keydown", function (e) 
 
 /* ===== Button click ===== */
 document.getElementById("submit-email").addEventListener("click", submitEmail);
-/script>
+</script>
+
 </body>
 </html>
