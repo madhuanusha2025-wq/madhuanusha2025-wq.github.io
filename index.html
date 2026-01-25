@@ -114,9 +114,23 @@ section {
 <main>
 
 <div id="email-box">
-    <h4>Email Registration</h4>
-    <input type="email" id="email-input" placeholder="Enter your email ID, here">
-    <button type="button" id="submit-email">Submit</button>
+<form
+  id="email-box"
+  method="POST"
+  action="https://formspree.io/f/xkojekaq"
+>
+  <h4>Email Registration</h4>
+
+  <input
+    type="email"
+    name="email"
+    id="email-input"
+    placeholder="Enter your email ID, here"
+    required
+  >
+
+  <button type="submit">Submit</button>
+</form>
     <div id="email-msg"></div>
 </div>
 
