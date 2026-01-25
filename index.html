@@ -115,11 +115,12 @@ section {
 
 <!-- ===== Email Input (Visible Immediately) ===== -->
 <div id="email-box">
-  <h4>Email Registration</h4>
-  <input type="email" id="email-input" placeholder="Enter your email ID, here">
-  <button type="button">Submit</button>
-  <div id="email-msg"></div>
+    <h4>Email Registration</h4>
+    <input type="text" id="email-input" placeholder="Enter your email ID, here">
+    <button id="submit-email">Submit</button>
+    <div id="email-msg"></div>
 </div>
+
 <section>
     <h2>What RightFitTalent Is</h2>
     <p><strong>RightFitTalent is a selective engagement initiative.</strong></p>
@@ -179,7 +180,6 @@ section {
 </section>
 
 </main>
-
 <script>
 function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
