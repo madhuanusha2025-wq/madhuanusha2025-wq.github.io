@@ -214,11 +214,12 @@ fetch("https://formspree.io/f/xykevpya", {
 .catch(() => {
   document.getElementById("email-msg").textContent =
     "Submission failed. Try again.";
-});
-      setTimeout(() => {
+    
+  setTimeout(() => {
     window.location.reload();
   }, 1500);
     
+});
     msg.style.color = "black";
     msg.innerHTML =
         "Thank you for sharing your email ID with us.<br>" +
