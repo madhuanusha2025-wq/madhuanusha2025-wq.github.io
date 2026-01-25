@@ -206,24 +206,24 @@ fetch("https://formspree.io/f/xykevpya", {
     "Content-Type": "application/json",
     "Accept": "application/json"
   },
-  body: JSON.stringify({ email })
+  body: JSON.stringify({ email: email })
 })
 .then(res => {
   if (!res.ok) throw new Error("failed");
+
+  msg.style.color = "black";
+  msg.innerHTML =
+    "Thank you for sharing your email ID with us.<br>" +
+    "Our support team will have only email communication with registered email ID from " +
+    "<span style='color:green; font-weight:bold;'>rftsupport@rightfittalent.com</span>.";
+
+  input.value = "";
+  hideMessage();
 })
 .catch(() => {
-  document.getElementById("email-msg").textContent =
-    "Submission failed. Try again.";
+  msg.style.color = "red";
+  msg.textContent = "Submission failed. Try again.";
 });
-    msg.style.color = "black";
-    msg.innerHTML =
-        "Thank you for sharing your email ID with us.<br>" +
-        "Our support team will have only email communication with registered email ID from " +
-        "<span style='color:green; font-weight:bold;'>rftsupport@rightfittalent.com</span>.";
-
-    input.value = "";
-    hideMessage();
-}
 
 function hideMessage() {
     setTimeout(() => {
