@@ -200,12 +200,21 @@ function submitEmail() {
         return;
     }
 
-    fetch("https://formspree.io/forms/xykevpya", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email })
-    });
-
+fetch("https://formspree.io/f/xkojekaq", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+  },
+  body: JSON.stringify({ email })
+})
+.then(res => {
+  if (!res.ok) throw new Error("failed");
+})
+.catch(() => {
+  document.getElementById("email-msg").textContent =
+    "Submission failed. Try again.";
+});
     msg.style.color = "black";
     msg.innerHTML =
         "Thank you for sharing your email ID with us.<br>" +
