@@ -180,6 +180,67 @@ section {
 </section>
 
 </main>
+    <script>
+function submitEmail() {
+    const input = document.getElementById("email-input");
+    const msg = document.getElementById("email-msg");
+    const email = input.value.trim();
 
+    msg.style.display = "block";
+
+    if (!isValidEmail(email)) {
+        msg.style.color = "red";
+        msg.textContent = "Please enter a valid email ID.";
+        hideMessage();
+        return;
+    }
+
+    fetch("https://formspree.io/f/xkojekaq", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({
+            email: email,
+            _replyto: email,
+            _subject: "Email Registration"
+        })
+    })
+    .then(res => {
+        if (!res.ok) throw new Error();
+
+        msg.style.color = "black";
+        msg.innerHTML =
+            "Thank you for sharing your email ID with us.<br>" +
+            "Our support team will have only email communication with registered email ID from " +
+            "<span style='color:green; font-weight:bold;'>rftsupport@rightfittalent.com</span>.";
+
+        input.value = "";
+        hideMessage();
+    })
+    .catch(() => {
+        msg.style.color = "red";
+        msg.textContent = "Submission failed. Please try again.";
+        hideMessage();
+    });
+}
+
+function hideMessage() {
+    setTimeout(() => {
+        document.getElementById("email-msg").style.display = "none";
+    }, 2500);
+}
+
+/* ===== Enter key support ===== */
+document.getElementById("email-input").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+        submitEmail();
+    }
+});
+
+/* ===== Button click ===== */
+document.getElementById("submit-email").addEventListener("click", submitEmail);
+/script>
 </body>
 </html>
