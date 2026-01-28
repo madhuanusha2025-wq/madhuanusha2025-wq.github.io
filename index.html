@@ -37,8 +37,7 @@ header img {
 }
 
 main {
-    position: relative;
-    max-width: 960px;
+    max-width: 1100px;
     margin: 40px auto;
     padding: 40px;
     background: #fff;
@@ -46,15 +45,22 @@ main {
     box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
 
-section {
-    margin-bottom: 40px;
+/* ===== MAIN LAYOUT ===== */
+#page-layout {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
 }
 
-/* ===== Email Box ===== */
+/* ===== LEFT CONTENT ===== */
+#services-container {
+    display: flex;
+    gap: 40px;
+    flex: 1;
+}
+
+/* ===== EMAIL BOX ===== */
 #email-box {
-    position: absolute;
-    top: 20px;
-    right: 20px;
     width: 280px;
     padding: 16px;
     border: 1px solid #e5e7eb;
@@ -90,12 +96,7 @@ section {
     display: none;
 }
 
-/* ===== Services ===== */
-#services-container {
-    display: flex;
-    gap: 40px;
-}
-
+/* ===== SERVICES MENU ===== */
 #services-menu {
     width: 260px;
 }
@@ -119,6 +120,7 @@ section {
     border-left: 4px solid var(--rft-secondary);
 }
 
+/* ===== SERVICE DESCRIPTION ===== */
 #service-description {
     flex: 1;
     padding: 20px;
@@ -138,6 +140,21 @@ section {
     color: var(--rft-muted);
     font-style: italic;
 }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+    #page-layout {
+        flex-direction: column;
+    }
+
+    #services-container {
+        flex-direction: column;
+    }
+
+    #email-box {
+        width: 100%;
+    }
+}
 </style>
 </head>
 
@@ -150,105 +167,84 @@ section {
 
 <main>
 
-<!-- ===== Email Registration ===== -->
-<div id="email-box">
-    <h4>Email Registration</h4>
-    <input type="text" id="email-input" placeholder="Enter your email ID here">
-    <button id="submit-email">Submit</button>
-    <div id="email-msg"></div>
-</div>
+<div id="page-layout">
 
-<section id="services-container">
+    <!-- ===== SERVICES ===== -->
+    <section id="services-container">
 
-    <div id="services-menu">
-        <h2>Our Services</h2>
-        <ul>
-            <li class="service-item active" data-service="jd">
-                JD–Resume Mapping Advisory
-            </li>
-        </ul>
-    </div>
-
-    <div id="service-description">
-        <p class="placeholder" id="placeholder-text">
-            Select a service to view details.
-        </p>
-
-        <div class="service-content active" id="service-jd">
-            <h3>JD–Resume Mapping Advisory</h3>
-            <p>
-                This is RFT’s first and only service offering.
-                It is a <strong>paid, advisory-only service</strong> designed to help
-                individuals and organizations understand how an existing resume
-                aligns with a specific Job Description (JD).
-            </p>
-            <p>
-                RFT operates on a <strong>NET-ZERO execution model</strong>.
-                We deliver decision clarity and outcome understanding —
-                not resumes, hours, headcount, or execution services.
-            </p>
-            <h4>Engagement Structure</h4>
+        <div id="services-menu">
+            <h2>Our Services</h2>
             <ul>
-                <li>Frozen scope</li>
-                <li>Defined duration</li>
-                <li>Outcome-independent pricing</li>
-                <li>Zero re-work obligation</li>
+                <li class="service-item active" data-service="jd">
+                    JD–Resume Mapping Advisory
+                </li>
             </ul>
-            <p>
-                All advice is opinion-based and non-binding.
-                Decisions and actions remain entirely with the client.
-            </p>
         </div>
-    </div>
 
-</section>
+        <div id="service-description">
+            <div class="service-content active" id="service-jd">
+                <h3>JD–Resume Mapping Advisory</h3>
+                <p>
+                    This is RFT’s first and only service offering.
+                    It is a <strong>paid, advisory-only service</strong> designed to help
+                    individuals and organizations understand how an existing resume
+                    aligns with a specific Job Description (JD).
+                </p>
+                <p>
+                    RFT operates on a <strong>NET-ZERO execution model</strong>.
+                    We deliver decision clarity and outcome understanding —
+                    not resumes, hours, headcount, or execution services.
+                </p>
+
+                <h4>Engagement Structure</h4>
+                <ul>
+                    <li>Frozen scope</li>
+                    <li>Defined duration</li>
+                    <li>Outcome-independent pricing</li>
+                    <li>Zero re-work obligation</li>
+                </ul>
+
+                <p>
+                    All advice is opinion-based and non-binding.
+                    Decisions and actions remain entirely with the client.
+                </p>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ===== EMAIL ===== -->
+    <aside id="email-box">
+        <h4>Email Registration</h4>
+        <input type="text" id="email-input" placeholder="Enter your email ID here">
+        <button id="submit-email">Submit</button>
+        <div id="email-msg"></div>
+    </aside>
+
+</div>
 
 </main>
 
 <script>
-/* =========================
-   UI STATE & REFRESH LOGIC
-========================= */
-
-function refreshUI() {
-    // Soft refresh: re-render active service safely
-    const activeItem = document.querySelector(".service-item.active");
-    if (!activeItem) return;
-
-    const target = activeItem.dataset.service;
-
-    document.querySelectorAll(".service-content")
-        .forEach(c => c.classList.remove("active"));
-
-    const content = document.getElementById("service-" + target);
-    if (content) {
-        content.classList.add("active");
-    }
-}
-
-/* =========================
-   SERVICE INTERACTION LOGIC
-========================= */
-
+/* ===== SERVICE SWITCH ===== */
 const serviceItems = document.querySelectorAll(".service-item");
+const serviceContents = document.querySelectorAll(".service-content");
 
 serviceItems.forEach(item => {
-    item.addEventListener("mouseenter", activateService);
-    item.addEventListener("click", activateService);
+    item.addEventListener("mouseenter", activate);
+    item.addEventListener("click", activate);
 
-    function activateService() {
+    function activate() {
         serviceItems.forEach(i => i.classList.remove("active"));
-        item.classList.add("active");
+        serviceContents.forEach(c => c.classList.remove("active"));
 
-        document.getElementById("placeholder-text").style.display = "none";
-        refreshUI();
+        item.classList.add("active");
+        document.getElementById("service-" + item.dataset.service)
+            .classList.add("active");
     }
 });
 
-/* =========================
-   EMAIL LOGIC
-========================= */
-
+/* ===== EMAIL ===== */
 function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
@@ -271,19 +267,7 @@ document.getElementById("submit-email").addEventListener("click", () => {
         "All communication will be from <strong>support@rftalent.in</strong>.";
 
     input.value = "";
-
-    // Optional soft refresh after interaction
-    setTimeout(refreshUI, 300);
 });
-
-/* =========================
-   HARD REFRESH FALLBACK
-   (use only when needed)
-========================= */
-
-// Uncomment ONLY if you ever need forced reload
-// setTimeout(() => location.reload(true), 3000);
-
 </script>
 
 </body>
