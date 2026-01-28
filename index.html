@@ -50,18 +50,7 @@ section {
     margin-bottom: 40px;
 }
 
-.two-col {
-    display: flex;
-    gap: 40px;
-    flex-wrap: wrap;
-}
-
-.col {
-    flex: 1;
-    min-width: 260px;
-}
-
-/* ===== Email Input Box ===== */
+/* ===== Email Box ===== */
 #email-box {
     position: absolute;
     top: 20px;
@@ -84,7 +73,6 @@ section {
     padding: 8px;
     font-size: 13px;
     margin-bottom: 8px;
-    box-sizing: border-box;
 }
 
 #submit-email {
@@ -101,6 +89,55 @@ section {
     font-size: 12px;
     display: none;
 }
+
+/* ===== Services ===== */
+#services-container {
+    display: flex;
+    gap: 40px;
+}
+
+#services-menu {
+    width: 260px;
+}
+
+#services-menu ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 12px;
+}
+
+.service-item {
+    padding: 12px;
+    background: #f1f5f9;
+    cursor: pointer;
+    border-left: 4px solid transparent;
+}
+
+.service-item:hover,
+.service-item.active {
+    background: #e2e8f0;
+    border-left: 4px solid var(--rft-secondary);
+}
+
+#service-description {
+    flex: 1;
+    padding: 20px;
+    background: #f8fafc;
+    border-radius: 6px;
+}
+
+.service-content {
+    display: none;
+}
+
+.service-content.active {
+    display: block;
+}
+
+.placeholder {
+    color: var(--rft-muted);
+    font-style: italic;
+}
 </style>
 </head>
 
@@ -108,144 +145,145 @@ section {
 
 <header>
     <img src="RFTlogo.png" alt="RightFitTalent Logo">
-    <p class="tagline">Always Good To Hold The Right Position By Right Person</p>
+    <p class="tagline">Always Good to Hold the Right Position with the Right Person</p>
 </header>
 
 <main>
 
-<!-- ===== Email Input (Visible Immediately) ===== -->
+<!-- ===== Email Registration ===== -->
 <div id="email-box">
     <h4>Email Registration</h4>
-    <input type="text" id="email-input" placeholder="Enter your email ID, here">
+    <input type="text" id="email-input" placeholder="Enter your email ID here">
     <button id="submit-email">Submit</button>
     <div id="email-msg"></div>
 </div>
 
-<section>
-    <h2>What RightFitTalent Is</h2>
-    <p><strong>RightFitTalent is a selective engagement initiative.</strong></p>
-    <p>We work at the intersection of employers and talent where fit truly matters.</p>
-    <p>Our focus is alignment, clarity, and responsibility — not volume or speed.</p>
-    <p>If alignment is missing, we prefer not to proceed.</p>
-</section>
+<section id="services-container">
 
-<section class="two-col">
-    <div class="col">
-        <h2>What We Do</h2>
+    <div id="services-menu">
+        <h2>Our Services</h2>
         <ul>
-            <li>Engage selectively with employers and job seekers</li>
-            <li>Facilitate discussions where role-fit is critical</li>
-            <li>Operate with milestone-based clarity</li>
-            <li>Use email as the primary mode of communication</li>
-            <li>Conduct online meetings only when required</li>
+            <li class="service-item active" data-service="jd">
+                JD–Resume Mapping Advisory
+            </li>
         </ul>
     </div>
 
-    <div class="col">
-        <h2>What We Do Not Do</h2>
-        <ul>
-            <li>We are not a job portal</li>
-            <li>We do not allow mass job postings</li>
-            <li>We do not collect resumes on this website</li>
-            <li>We do not guarantee hiring or placement</li>
-            <li>We do not run automated matching or background checks</li>
-        </ul>
+    <div id="service-description">
+        <p class="placeholder" id="placeholder-text">
+            Select a service to view details.
+        </p>
+
+        <div class="service-content active" id="service-jd">
+            <h3>JD–Resume Mapping Advisory</h3>
+            <p>
+                This is RFT’s first and only service offering.
+                It is a <strong>paid, advisory-only service</strong> designed to help
+                individuals and organizations understand how an existing resume
+                aligns with a specific Job Description (JD).
+            </p>
+            <p>
+                RFT operates on a <strong>NET-ZERO execution model</strong>.
+                We deliver decision clarity and outcome understanding —
+                not resumes, hours, headcount, or execution services.
+            </p>
+            <h4>Engagement Structure</h4>
+            <ul>
+                <li>Frozen scope</li>
+                <li>Defined duration</li>
+                <li>Outcome-independent pricing</li>
+                <li>Zero re-work obligation</li>
+            </ul>
+            <p>
+                All advice is opinion-based and non-binding.
+                Decisions and actions remain entirely with the client.
+            </p>
+        </div>
     </div>
-</section>
 
-<section>
-    <h2>How Engagement Works</h2>
-    <ol>
-        <li>You understand how RightFitTalent operates</li>
-        <li>Initial communication happens via email</li>
-        <li>Requirements and expectations are discussed</li>
-        <li>Milestones are defined before any commitment</li>
-        <li>Online meetings are scheduled only if necessary</li>
-    </ol>
-</section>
-
-<section>
-    <h2>Security & Caution Notice</h2>
-    <p>RightFitTalent does not perform identity verification, background checks, or fact validation.</p>
-    <p>Users are advised to share information responsibly and verify details independently.</p>
-    <p>RightFitTalent acts as a facilitator, not a guarantor.</p>
-    <p>RightFitTalent does not charge any fee from job seekers.</p>
-    <p>Employers may require an agreed MoU or SoW for formal verification.</p>
-</section>
-
-<section>
-    <h2>Optional Assistant</h2>
-    <p>An optional assistant may guide you on how to initiate email communication.</p>
-    <p>No decisions or commitments are made through the assistant.</p>
 </section>
 
 </main>
 
 <script>
+/* =========================
+   UI STATE & REFRESH LOGIC
+========================= */
+
+function refreshUI() {
+    // Soft refresh: re-render active service safely
+    const activeItem = document.querySelector(".service-item.active");
+    if (!activeItem) return;
+
+    const target = activeItem.dataset.service;
+
+    document.querySelectorAll(".service-content")
+        .forEach(c => c.classList.remove("active"));
+
+    const content = document.getElementById("service-" + target);
+    if (content) {
+        content.classList.add("active");
+    }
+}
+
+/* =========================
+   SERVICE INTERACTION LOGIC
+========================= */
+
+const serviceItems = document.querySelectorAll(".service-item");
+
+serviceItems.forEach(item => {
+    item.addEventListener("mouseenter", activateService);
+    item.addEventListener("click", activateService);
+
+    function activateService() {
+        serviceItems.forEach(i => i.classList.remove("active"));
+        item.classList.add("active");
+
+        document.getElementById("placeholder-text").style.display = "none";
+        refreshUI();
+    }
+});
+
+/* =========================
+   EMAIL LOGIC
+========================= */
+
 function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-function submitEmail() {
+document.getElementById("submit-email").addEventListener("click", () => {
     const input = document.getElementById("email-input");
     const msg = document.getElementById("email-msg");
-    const email = input.value.trim();
 
     msg.style.display = "block";
 
-    if (!isValidEmail(email)) {
+    if (!isValidEmail(input.value)) {
         msg.style.color = "red";
         msg.textContent = "Please enter a valid email ID.";
-        hideMessage();
         return;
     }
 
-fetch("https://formspree.io/f/xzdrrryg", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "Accept": "application/json"
-  },
-  body: JSON.stringify({ email })
-})
-.then(res => {
-  if (!res.ok) throw new Error("failed");
-
     msg.style.color = "black";
     msg.innerHTML =
-        "Thank you for sharing your email ID with us.<br>" +
-        "Our support team will have only email communication with registered email ID from " +
-        "<span style='color:green; font-weight:bold;'>rftsupport@rightfittalent.com</span>.";
+        "Thank you for registering.<br>" +
+        "All communication will be from <strong>support@rftalent.in</strong>.";
 
     input.value = "";
-    hideMessage();        
-      setTimeout(() => {
-    window.location.reload();
-  }, 1500);
-})
-.catch(() => {
-  document.getElementById("email-msg").textContent =
-    "Submission failed. Try again.";    
-  setTimeout(() => {
-    window.location.reload();
-  }, 1500);    
-});
-}
-function hideMessage() {
-    setTimeout(() => {
-        document.getElementById("email-msg").style.display = "none";
-    }, 2500);
-}
 
-/* ===== Enter key support ===== */
-document.getElementById("email-input").addEventListener("keydown", function (e) {
-    if (e.key === "Enter") {
-        submitEmail();
-    }
+    // Optional soft refresh after interaction
+    setTimeout(refreshUI, 300);
 });
 
-/* ===== Button click ===== */
-document.getElementById("submit-email").addEventListener("click", submitEmail);
+/* =========================
+   HARD REFRESH FALLBACK
+   (use only when needed)
+========================= */
+
+// Uncomment ONLY if you ever need forced reload
+// setTimeout(() => location.reload(true), 3000);
+
 </script>
 
 </body>
