@@ -12,10 +12,6 @@
     --rft-muted: #4b5563;
 }
 
-* {
-    box-sizing: border-box;
-}
-
 body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: #f8fafc;
@@ -41,7 +37,8 @@ header img {
 }
 
 main {
-    max-width: 1200px;
+    position: relative;
+    max-width: 960px;
     margin: 40px auto;
     padding: 40px;
     background: #fff;
@@ -49,61 +46,27 @@ main {
     box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
 
-/* ===== PAGE LAYOUT ===== */
-#page-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 300px;
+section {
+    margin-bottom: 40px;
+}
+
+.two-col {
+    display: flex;
     gap: 40px;
-    align-items: start;
+    flex-wrap: wrap;
 }
 
-/* ===== SERVICES AREA ===== */
-#services-container {
-    display: grid;
-    grid-template-columns: 260px minmax(0, 1fr);
-    gap: 32px;
+.col {
+    flex: 1;
+    min-width: 260px;
 }
 
-/* ===== SERVICES MENU ===== */
-#services-menu ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 12px;
-}
-
-.service-item {
-    padding: 12px;
-    background: #f1f5f9;
-    cursor: pointer;
-    border-left: 4px solid transparent;
-    word-break: break-word;
-}
-
-.service-item:hover,
-.service-item.active {
-    background: #e2e8f0;
-    border-left: 4px solid var(--rft-secondary);
-}
-
-/* ===== SERVICE DESCRIPTION ===== */
-#service-description {
-    background: #f8fafc;
-    border-radius: 6px;
-    padding: 20px;
-    min-width: 0; /* CRITICAL FIX */
-}
-
-.service-content {
-    display: none;
-}
-
-.service-content.active {
-    display: block;
-}
-
-/* ===== EMAIL BOX ===== */
+/* ===== Email Input Box ===== */
 #email-box {
-    width: 100%;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 280px;
     padding: 16px;
     border: 1px solid #e5e7eb;
     border-radius: 6px;
@@ -121,6 +84,7 @@ main {
     padding: 8px;
     font-size: 13px;
     margin-bottom: 8px;
+    box-sizing: border-box;
 }
 
 #submit-email {
@@ -137,17 +101,6 @@ main {
     font-size: 12px;
     display: none;
 }
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 900px) {
-    #page-layout {
-        grid-template-columns: 1fr;
-    }
-
-    #services-container {
-        grid-template-columns: 1fr;
-    }
-}
 </style>
 </head>
 
@@ -155,111 +108,142 @@ main {
 
 <header>
     <img src="RFTlogo.png" alt="RightFitTalent Logo">
-    <p class="tagline">Always Good to Hold the Right Position with the Right Person</p>
+    <p class="tagline">Always Good To Hold The Right Position By Right Person</p>
 </header>
 
 <main>
 
-<div id="page-layout">
-
-    <!-- ===== SERVICES ===== -->
-    <section id="services-container">
-
-        <div id="services-menu">
-            <h2>Our Services</h2>
-            <ul>
-                <li class="service-item active" data-service="jd">
-                    JD–Resume Mapping Advisory
-                </li>
-            </ul>
-        </div>
-
-        <div id="service-description">
-            <div class="service-content active" id="service-jd">
-                <h3>JD–Resume Mapping Advisory</h3>
-                <p>
-                    This is RFT’s first and only service offering.
-                    It is a <strong>paid, advisory-only service</strong> designed to help
-                    individuals and organizations understand how an existing resume
-                    aligns with a specific Job Description (JD).
-                </p>
-                <p>
-                    RFT operates on a <strong>NET-ZERO execution model</strong>.
-                    We deliver decision clarity and outcome understanding —
-                    not resumes, hours, headcount, or execution services.
-                </p>
-
-                <h4>Engagement Structure</h4>
-                <ul>
-                    <li>Frozen scope</li>
-                    <li>Defined duration</li>
-                    <li>Outcome-independent pricing</li>
-                    <li>Zero re-work obligation</li>
-                </ul>
-
-                <p>
-                    All advice is opinion-based and non-binding.
-                    Decisions and actions remain entirely with the client.
-                </p>
-            </div>
-        </div>
-
-    </section>
-
-    <!-- ===== EMAIL ===== -->
-    <aside id="email-box">
-        <h4>Email Registration</h4>
-        <input type="text" id="email-input" placeholder="Enter your email ID here">
-        <button id="submit-email">Submit</button>
-        <div id="email-msg"></div>
-    </aside>
-
+<!-- ===== Email Input ===== -->
+<div id="email-box">
+    <h4>Email Registration</h4>
+    <input type="text" id="email-input" placeholder="Enter your email ID, here">
+    <button id="submit-email">Submit</button>
+    <div id="email-msg"></div>
 </div>
+
+<!-- ===== OUR 1ST SERVICE (ADDED) ===== -->
+<section>
+    <h2>Our 1st Service</h2>
+    <h3>JD–Resume Mapping Advisory</h3>
+
+    <p>
+        This is RFT’s first and only service offering.
+        It is a <strong>paid, advisory-only service</strong> designed to help
+        individuals and organizations understand how an existing resume
+        aligns with a specific Job Description (JD).
+    </p>
+
+    <p>
+        RFT operates on a <strong>NET-ZERO execution model</strong>.
+        We deliver decision clarity and outcome understanding —
+        not resumes, hours, headcount, or execution services.
+    </p>
+
+    <p>
+        All advice is opinion-based and non-binding.
+        Decisions and actions remain entirely with the client.
+    </p>
+</section>
+
+<section>
+    <h2>What RightFitTalent Is</h2>
+    <p><strong>RightFitTalent is a selective engagement initiative.</strong></p>
+    <p>We work at the intersection of employers and talent where fit truly matters.</p>
+    <p>Our focus is alignment, clarity, and responsibility — not volume or speed.</p>
+    <p>If alignment is missing, we prefer not to proceed.</p>
+</section>
+
+<section class="two-col">
+    <div class="col">
+        <h2>What We Do</h2>
+        <ul>
+            <li>Engage selectively with employers and job seekers</li>
+            <li>Facilitate discussions where role-fit is critical</li>
+            <li>Operate with milestone-based clarity</li>
+            <li>Use email as the primary mode of communication</li>
+            <li>Conduct online meetings only when required</li>
+        </ul>
+    </div>
+
+    <div class="col">
+        <h2>What We Do Not Do</h2>
+        <ul>
+            <li>We are not a job portal</li>
+            <li>We do not allow mass job postings</li>
+            <li>We do not collect resumes on this website</li>
+            <li>We do not guarantee hiring or placement</li>
+            <li>We do not run automated matching or background checks</li>
+        </ul>
+    </div>
+</section>
+
+<section>
+    <h2>How Engagement Works</h2>
+    <ol>
+        <li>You understand how RightFitTalent operates</li>
+        <li>Initial communication happens via email</li>
+        <li>Requirements and expectations are discussed</li>
+        <li>Milestones are defined before any commitment</li>
+        <li>Online meetings are scheduled only if necessary</li>
+    </ol>
+</section>
+
+<section>
+    <h2>Security & Caution Notice</h2>
+    <p>RightFitTalent does not perform identity verification, background checks, or fact validation.</p>
+    <p>Users are advised to share information responsibly and verify details independently.</p>
+    <p>RightFitTalent acts as a facilitator, not a guarantor.</p>
+    <p>RightFitTalent does not charge any fee from job seekers.</p>
+    <p>Employers may require an agreed MoU or SoW for formal verification.</p>
+</section>
+
+<section>
+    <h2>Optional Assistant</h2>
+    <p>An optional assistant may guide you on how to initiate email communication.</p>
+    <p>No decisions or commitments are made through the assistant.</p>
+</section>
 
 </main>
 
 <script>
-/* ===== SERVICE INTERACTION ===== */
-document.querySelectorAll(".service-item").forEach(item => {
-    item.addEventListener("mouseenter", activate);
-    item.addEventListener("click", activate);
-
-    function activate() {
-        document.querySelectorAll(".service-item")
-            .forEach(i => i.classList.remove("active"));
-        document.querySelectorAll(".service-content")
-            .forEach(c => c.classList.remove("active"));
-
-        item.classList.add("active");
-        document.getElementById("service-" + item.dataset.service)
-            .classList.add("active");
-    }
-});
-
-/* ===== EMAIL ===== */
 function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-document.getElementById("submit-email").addEventListener("click", () => {
+function submitEmail() {
     const input = document.getElementById("email-input");
     const msg = document.getElementById("email-msg");
+    const email = input.value.trim();
 
     msg.style.display = "block";
 
-    if (!isValidEmail(input.value)) {
+    if (!isValidEmail(email)) {
         msg.style.color = "red";
         msg.textContent = "Please enter a valid email ID.";
+        hideMessage();
         return;
     }
 
     msg.style.color = "black";
     msg.innerHTML =
-        "Thank you for registering.<br>" +
-        "All communication will be from <strong>support@rftalent.in</strong>.";
+        "Thank you for sharing your email ID with us.<br>" +
+        "Our support team will communicate only via email.";
 
     input.value = "";
+    hideMessage();
+}
+
+function hideMessage() {
+    setTimeout(() => {
+        document.getElementById("email-msg").style.display = "none";
+    }, 2500);
+}
+
+document.getElementById("email-input").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") submitEmail();
 });
+
+document.getElementById("submit-email").addEventListener("click", submitEmail);
 </script>
 
 </body>
