@@ -12,6 +12,10 @@
     --rft-muted: #4b5563;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: #f8fafc;
@@ -37,7 +41,7 @@ header img {
 }
 
 main {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 40px auto;
     padding: 40px;
     background: #fff;
@@ -45,23 +49,61 @@ main {
     box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
 
-/* ===== MAIN LAYOUT ===== */
+/* ===== PAGE LAYOUT ===== */
 #page-layout {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
     gap: 40px;
-    align-items: flex-start;
+    align-items: start;
 }
 
-/* ===== LEFT CONTENT ===== */
+/* ===== SERVICES AREA ===== */
 #services-container {
-    display: flex;
-    gap: 40px;
-    flex: 1;
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 32px;
+}
+
+/* ===== SERVICES MENU ===== */
+#services-menu ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 12px;
+}
+
+.service-item {
+    padding: 12px;
+    background: #f1f5f9;
+    cursor: pointer;
+    border-left: 4px solid transparent;
+    word-break: break-word;
+}
+
+.service-item:hover,
+.service-item.active {
+    background: #e2e8f0;
+    border-left: 4px solid var(--rft-secondary);
+}
+
+/* ===== SERVICE DESCRIPTION ===== */
+#service-description {
+    background: #f8fafc;
+    border-radius: 6px;
+    padding: 20px;
+    min-width: 0; /* CRITICAL FIX */
+}
+
+.service-content {
+    display: none;
+}
+
+.service-content.active {
+    display: block;
 }
 
 /* ===== EMAIL BOX ===== */
 #email-box {
-    width: 280px;
+    width: 100%;
     padding: 16px;
     border: 1px solid #e5e7eb;
     border-radius: 6px;
@@ -96,63 +138,14 @@ main {
     display: none;
 }
 
-/* ===== SERVICES MENU ===== */
-#services-menu {
-    width: 260px;
-}
-
-#services-menu ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 12px;
-}
-
-.service-item {
-    padding: 12px;
-    background: #f1f5f9;
-    cursor: pointer;
-    border-left: 4px solid transparent;
-}
-
-.service-item:hover,
-.service-item.active {
-    background: #e2e8f0;
-    border-left: 4px solid var(--rft-secondary);
-}
-
-/* ===== SERVICE DESCRIPTION ===== */
-#service-description {
-    flex: 1;
-    padding: 20px;
-    background: #f8fafc;
-    border-radius: 6px;
-}
-
-.service-content {
-    display: none;
-}
-
-.service-content.active {
-    display: block;
-}
-
-.placeholder {
-    color: var(--rft-muted);
-    font-style: italic;
-}
-
 /* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
     #page-layout {
-        flex-direction: column;
+        grid-template-columns: 1fr;
     }
 
     #services-container {
-        flex-direction: column;
-    }
-
-    #email-box {
-        width: 100%;
+        grid-template-columns: 1fr;
     }
 }
 </style>
@@ -226,17 +219,16 @@ main {
 </main>
 
 <script>
-/* ===== SERVICE SWITCH ===== */
-const serviceItems = document.querySelectorAll(".service-item");
-const serviceContents = document.querySelectorAll(".service-content");
-
-serviceItems.forEach(item => {
+/* ===== SERVICE INTERACTION ===== */
+document.querySelectorAll(".service-item").forEach(item => {
     item.addEventListener("mouseenter", activate);
     item.addEventListener("click", activate);
 
     function activate() {
-        serviceItems.forEach(i => i.classList.remove("active"));
-        serviceContents.forEach(c => c.classList.remove("active"));
+        document.querySelectorAll(".service-item")
+            .forEach(i => i.classList.remove("active"));
+        document.querySelectorAll(".service-content")
+            .forEach(c => c.classList.remove("active"));
 
         item.classList.add("active");
         document.getElementById("service-" + item.dataset.service)
