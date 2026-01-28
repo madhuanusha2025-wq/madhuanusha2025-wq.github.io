@@ -113,38 +113,20 @@ section {
 
 <main>
 
-<!-- ===== Email Input ===== -->
+<!-- ===== Email Input (Visible Immediately) ===== -->
 <div id="email-box">
     <h4>Email Registration</h4>
     <input type="text" id="email-input" placeholder="Enter your email ID, here">
     <button id="submit-email">Submit</button>
     <div id="email-msg"></div>
 </div>
-
-<!-- ===== OUR 1ST SERVICE (ADDED) ===== -->
 <section>
-    <h2>Our 1st Service</h2>
-    <h3>JD–Resume Mapping Advisory</h3>
-
+    <h2>Our Services</h2>
+    <h3>JD mapping with Resume</h3>
     <p>
-        This is RFT’s first and only service offering.
-        It is a <strong>paid, advisory-only service</strong> designed to help
-        individuals and organizations understand how an existing resume
-        aligns with a specific Job Description (JD).
-    </p>
-
-    <p>
-        RFT operates on a <strong>NET-ZERO execution model</strong>.
-        We deliver decision clarity and outcome understanding —
-        not resumes, hours, headcount, or execution services.
-    </p>
-
-    <p>
-        All advice is opinion-based and non-binding.
-        Decisions and actions remain entirely with the client.
+        Advisory-only service to understand how a resume aligns with a given Job Description.
     </p>
 </section>
-
 <section>
     <h2>What RightFitTalent Is</h2>
     <p><strong>RightFitTalent is a selective engagement initiative.</strong></p>
@@ -224,25 +206,51 @@ function submitEmail() {
         return;
     }
 
+fetch("https://formspree.io/f/xykevpya", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+  },
+  body: JSON.stringify({ email })
+})
+.then(res => {
+  if (!res.ok) throw new Error("failed");
+
     msg.style.color = "black";
     msg.innerHTML =
         "Thank you for sharing your email ID with us.<br>" +
-        "Our support team will communicate only via email.";
+        "Our support team will have only email communication with registered email ID from " +
+        "<span style='color:green; font-weight:bold;'>rftsupport@rightfittalent.com</span>.";
 
     input.value = "";
-    hideMessage();
+    hideMessage();        
+      setTimeout(() => {
+    window.location.reload();
+  }, 1500);
+})
+.catch(() => {
+  document.getElementById("email-msg").textContent =
+    "Submission failed. Try again.";    
+  setTimeout(() => {
+    window.location.reload();
+  }, 1500);    
+});
 }
-
 function hideMessage() {
     setTimeout(() => {
         document.getElementById("email-msg").style.display = "none";
     }, 2500);
 }
 
+/* ===== Enter key support ===== */
 document.getElementById("email-input").addEventListener("keydown", function (e) {
-    if (e.key === "Enter") submitEmail();
+    if (e.key === "Enter") {
+        submitEmail();
+    }
 });
 
+/* ===== Button click ===== */
 document.getElementById("submit-email").addEventListener("click", submitEmail);
 </script>
 
