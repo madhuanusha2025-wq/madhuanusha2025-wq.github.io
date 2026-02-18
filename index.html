@@ -1,258 +1,880 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>RightFitTalent</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RightFitTalent - Quality Talent Matching with Purpose</title>
+    <meta name="description" content="RightFitTalent connects employers with the right talent where fit truly matters. Selective engagement, milestone-based clarity, and responsible matching.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-:root {
-    --rft-primary: #1f3a5f;
-    --rft-secondary: #2f7d6d;
-    --rft-muted: #4b5563;
-}
+        :root {
+            --primary: #1f3a5f;
+            --secondary: #2f7d6d;
+            --accent: #4a8f5e;
+            --dark: #1f3a5f;
+            --light: #f8fafc;
+            --border: #e2e8f0;
+            --text: #334155;
+            --text-light: #64748b;
+        }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #f8fafc;
-    margin: 0;
-}
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: #ffffff;
+        }
 
-header {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 24px 32px;
-    border-bottom: 2px solid var(--rft-primary);
-    background: #fff;
-}
+        /* Header & Navigation */
+        header {
+            background: white;
+            color: var(--dark);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(31, 58, 95, 0.08);
+        }
 
-header img {
-    height: 80px;
-}
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.tagline {
-    font-size: 14px;
-    color: var(--rft-secondary);
-}
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
 
-main {
-    position: relative;
-    max-width: 960px;
-    margin: 40px auto;
-    padding: 40px;
-    background: #fff;
-    border-radius: 6px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-}
+        .logo img {
+            height: 60px;
+            width: auto;
+        }
 
-section {
-    margin-bottom: 40px;
-}
+        nav a {
+            color: var(--dark);
+            text-decoration: none;
+            margin-left: 2.5rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
 
-.two-col {
-    display: flex;
-    gap: 40px;
-    flex-wrap: wrap;
-}
+        nav a:hover {
+            color: var(--secondary);
+        }
 
-.col {
-    flex: 1;
-    min-width: 260px;
-}
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.3s ease;
+        }
 
-/* ===== Email Input Box ===== */
-#email-box {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 280px;
-    padding: 16px;
-    border: 1px solid #e5e7eb;
-    border-radius: 6px;
-    background: #ffffff;
-}
+        nav a:hover::after {
+            width: 100%;
+        }
 
-#email-box h4 {
-    margin: 0 0 10px 0;
-    font-size: 14px;
-    color: var(--rft-primary);
-}
+        /* Email Registration */
+        .registration-banner {
+            background: var(--light);
+            padding: 3rem 2rem;
+            border-bottom: 2px solid var(--primary);
+        }
 
-#email-input {
-    width: 100%;
-    padding: 8px;
-    font-size: 13px;
-    margin-bottom: 8px;
-    box-sizing: border-box;
-}
+        .registration-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            max-width: 400px;
+            margin: 0 auto;
+        }
 
-#submit-email {
-    padding: 8px 12px;
-    width: 100%;
-    background: var(--rft-secondary);
-    border: none;
-    color: #fff;
-    cursor: pointer;
-}
+        .registration-box h3 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
 
-#email-msg {
-    margin-top: 10px;
-    font-size: 12px;
-    display: none;
-}
-</style>
+        .registration-box form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        #email-input {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        #email-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(47, 125, 109, 0.1);
+            background: #f9fdfb;
+        }
+
+        #email-input.error {
+            border-color: #dc2626;
+            background-color: #fef2f2;
+        }
+
+        #submit-email {
+            padding: 0.75rem 1rem;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        #submit-email:hover {
+            background: #236455;
+            box-shadow: 0 4px 12px rgba(47, 125, 109, 0.3);
+            transform: translateY(-2px);
+        }
+
+        #submit-email:active {
+            transform: translateY(0);
+        }
+
+        #email-msg {
+            margin-top: 12px;
+            font-size: 13px;
+            display: none;
+            padding: 10px;
+            border-radius: 6px;
+            line-height: 1.5;
+        }
+
+        #email-msg.error {
+            color: #dc2626;
+            background-color: #fef2f2;
+        }
+
+        #email-msg.success {
+            color: #15803d;
+            background-color: #f0fdf4;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--dark) 0%, #3a5a7f 100%);
+            color: white;
+            padding: 8rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(47, 125, 109, 0.08);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .hero .tagline {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: #cbd5e1;
+            font-weight: 300;
+        }
+
+        .hero .highlight {
+            color: var(--secondary);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.85rem 2.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #236455;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(47, 125, 109, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--dark);
+            transform: translateY(-2px);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 5rem 2rem;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        section h3 {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--light);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .key-point {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .key-point::before {
+            content: '✓';
+            color: var(--secondary);
+            font-weight: bold;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        /* What We Do / Don't Do */
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+        }
+
+        .service-card.dont {
+            border-left-color: #dc2626;
+        }
+
+        .service-card h4 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .service-card ul {
+            list-style: none;
+        }
+
+        .service-card li {
+            padding: 0.75rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .service-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .service-card.dont li::before {
+            content: '✗';
+            color: #dc2626;
+        }
+
+        /* How It Works */
+        .process {
+            background: white;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem;
+            background: var(--light);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-4px);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .step:hover .step-number {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .step h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .step:hover h4 {
+            color: white;
+        }
+
+        .step p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        .step:hover p {
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* Services Section */
+        .main-service {
+            background: var(--light);
+            margin-bottom: 3rem;
+        }
+
+        .service-detail {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 8px;
+            border-top: 5px solid var(--secondary);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+        }
+
+        .service-detail h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .service-detail p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        /* Security Notice */
+        .security {
+            background: #f0fdf4;
+            border-left: 5px solid var(--secondary);
+            padding: 2.5rem;
+            border-radius: 8px;
+            margin: 3rem 0;
+        }
+
+        .security h4 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .security p {
+            color: var(--text);
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+        }
+
+        .contact h2 {
+            color: white;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            padding: 2rem;
+            background: rgba(47, 125, 109, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(47, 125, 109, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(47, 125, 109, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .contact-item h4 {
+            margin-bottom: 0.75rem;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .contact-item p {
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+            font-weight: 500;
+        }
+
+        .contact-item a:hover {
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        footer {
+            background: #0f2540;
+            color: var(--text-light);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(47, 125, 109, 0.2);
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .tagline {
+                font-size: 1rem;
+            }
+
+            .about-content,
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            section h2 {
+                font-size: 1.8rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        section {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <img src="RFTlogo.png" alt="RightFitTalent Logo">
+            </div>
+            <nav>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
 
-<header>
-    <img src="RFTlogo.png" alt="RightFitTalent Logo">
-    <p class="tagline">Always Good To Hold The Right Position By Right Person</p>
-</header>
+    <!-- Email Registration Section -->
+    <section class="registration-banner">
+        <div class="container">
+            <div class="registration-box">
+                <h3>Email Registration</h3>
+                <form id="emailForm">
+                    <input 
+                        type="text" 
+                        placeholder="Enter your email ID, here" 
+                        name="email"
+                        id="email-input"
+                    >
+                    <button type="submit" class="btn" id="submit-email" style="background: var(--secondary); color: white; margin: 0;">Submit</button>
+                    <div id="email-msg"></div>
+                </form>
+            </div>
+        </div>
+    </section>
 
-<main>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Connect with the <span class="highlight">Right Talent</span></h1>
+            <p class="tagline">Quality matching where <span class="highlight">fit truly matters</span></p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary">Get Started</a>
+                <a href="#how-it-works" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
 
-<!-- ===== Email Input (Visible Immediately) ===== -->
-<div id="email-box">
-    <h4>Email Registration</h4>
-    <input type="text" id="email-input" placeholder="Enter your email ID, here">
-    <button id="submit-email">Submit</button>
-    <div id="email-msg"></div>
-</div>
-<section>
-    <h2>Our Services</h2>
-    <h3>JD mapping with Resume</h3>
-    <p>
-        Advisory-only service to understand how a resume aligns with a given Job Description.
-    </p>
-</section>
-<section>
-    <h2>What RightFitTalent Is</h2>
-    <p><strong>RightFitTalent is a selective engagement initiative.</strong></p>
-    <p>We work at the intersection of employers and talent where fit truly matters.</p>
-    <p>Our focus is alignment, clarity, and responsibility — not volume or speed.</p>
-    <p>If alignment is missing, we prefer not to proceed.</p>
-</section>
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2>What RightFitTalent Is</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>We Work Differently</h3>
+                    <p><strong>RightFitTalent is a selective engagement initiative.</strong></p>
+                    <p>We work at the intersection of employers and talent where fit truly matters.</p>
+                    <p>Our focus is <strong>alignment, clarity, and responsibility</strong>—not volume or speed.</p>
+                    <p>If alignment is missing, we prefer not to proceed.</p>
+                </div>
+                <div>
+                    <div class="service-detail">
+                        <h3>Our Services</h3>
+                        <h4 style="color: var(--secondary); margin-bottom: 0.5rem;">JD Mapping with Resume</h4>
+                        <p>Advisory-only service to understand how a resume aligns with a given Job Description.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<section class="two-col">
-    <div class="col">
-        <h2>What We Do</h2>
-        <ul>
-            <li>Engage selectively with employers and job seekers</li>
-            <li>Facilitate discussions where role-fit is critical</li>
-            <li>Operate with milestone-based clarity</li>
-            <li>Use email as the primary mode of communication</li>
-            <li>Conduct online meetings only when required</li>
-        </ul>
-    </div>
+    <!-- What We Do & Don't Do -->
+    <section id="services">
+        <div class="container">
+            <h2>What We Do & Don't Do</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h4>✓ What We Do</h4>
+                    <ul>
+                        <li>Engage selectively with employers and job seekers</li>
+                        <li>Facilitate discussions where role-fit is critical</li>
+                        <li>Operate with milestone-based clarity</li>
+                        <li>Use email as the primary mode of communication</li>
+                        <li>Conduct online meetings only when required</li>
+                    </ul>
+                </div>
+                <div class="service-card dont">
+                    <h4>✗ What We Do Not Do</h4>
+                    <ul>
+                        <li>We are not a job portal</li>
+                        <li>We do not allow mass job postings</li>
+                        <li>We do not collect resumes on this website</li>
+                        <li>We do not guarantee hiring or placement</li>
+                        <li>We do not run automated matching or background checks</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="col">
-        <h2>What We Do Not Do</h2>
-        <ul>
-            <li>We are not a job portal</li>
-            <li>We do not allow mass job postings</li>
-            <li>We do not collect resumes on this website</li>
-            <li>We do not guarantee hiring or placement</li>
-            <li>We do not run automated matching or background checks</li>
-        </ul>
-    </div>
-</section>
+    <!-- How It Works -->
+    <section class="process" id="how-it-works">
+        <div class="container">
+            <h2>How Engagement Works</h2>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>You understand how RightFitTalent operates</h4>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>Initial communication happens via email</h4>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>Requirements and expectations are discussed</h4>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h4>Milestones are defined before any commitment</h4>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <h4>Online meetings are scheduled only if necessary</h4>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<section>
-    <h2>How Engagement Works</h2>
-    <ol>
-        <li>You understand how RightFitTalent operates</li>
-        <li>Initial communication happens via email</li>
-        <li>Requirements and expectations are discussed</li>
-        <li>Milestones are defined before any commitment</li>
-        <li>Online meetings are scheduled only if necessary</li>
-    </ol>
-</section>
+    <!-- Security & Trust -->
+    <section>
+        <div class="container">
+            <h2>Security & Caution Notice</h2>
+            <div class="security">
+                <h4>Important Information</h4>
+                <p>RightFitTalent does not perform identity verification, background checks, or fact validation.</p>
+                <p>Users are advised to share information responsibly and verify details independently.</p>
+                <p>RightFitTalent acts as a facilitator, not a guarantor.</p>
+                <p><strong>RightFitTalent does not charge any fee from job seekers.</strong></p>
+                <p>Employers may require an agreed MoU or SoW for formal verification.</p>
+            </div>
+        </div>
+    </section>
 
-<section>
-    <h2>Security & Caution Notice</h2>
-    <p>RightFitTalent does not perform identity verification, background checks, or fact validation.</p>
-    <p>Users are advised to share information responsibly and verify details independently.</p>
-    <p>RightFitTalent acts as a facilitator, not a guarantor.</p>
-    <p>RightFitTalent does not charge any fee from job seekers.</p>
-    <p>Employers may require an agreed MoU or SoW for formal verification.</p>
-</section>
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <p style="margin-bottom: 2rem; font-size: 1.1rem;">Ready to find the right fit? Let's talk.</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h4>Email</h4>
+                    <p><a href="mailto:support@rftalent.in">support@rftalent.in</a></p>
+                </div>
+                <div class="contact-item">
+                    <h4>Website</h4>
+                    <p><a href="https://rftalent.in" target="_blank">rftalent.in</a></p>
+                </div>
+                <div class="contact-item">
+                    <h4>Location</h4>
+                    <p>Bangalore, India</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<section>
-    <h2>Optional Assistant</h2>
-    <p>An optional assistant may guide you on how to initiate email communication.</p>
-    <p>No decisions or commitments are made through the assistant.</p>
-</section>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 RightFitTalent. All rights reserved.</p>
+        <p>Quality Talent Matching with Purpose</p>
+    </footer>
 
-</main>
+    <!-- Email Validation & Submission Script (From Your Original) -->
+    <script>
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
 
-<script>
-function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
+        function submitEmail() {
+            const input = document.getElementById("email-input");
+            const msg = document.getElementById("email-msg");
+            const email = input.value.trim();
 
-function submitEmail() {
-    const input = document.getElementById("email-input");
-    const msg = document.getElementById("email-msg");
-    const email = input.value.trim();
+            msg.style.display = "block";
 
-    msg.style.display = "block";
+            if (!isValidEmail(email)) {
+                msg.classList.remove('success');
+                msg.classList.add('error');
+                msg.textContent = "Please enter a valid email ID.";
+                input.classList.add('error');
+                return;
+            }
 
-    if (!isValidEmail(email)) {
-        msg.style.color = "red";
-        msg.textContent = "Please enter a valid email ID.";
-        hideMessage();
-        return;
-    }
+            input.classList.remove('error');
 
-fetch("https://formspree.io/f/xzdrrryg", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "Accept": "application/json"
-  },
-  body: JSON.stringify({ email })
-})
-.then(res => {
-  if (!res.ok) throw new Error("failed");
+            // Submit to Formspree (Your original endpoint)
+            fetch("https://formspree.io/f/xzdrrryg", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({ email })
+            })
+            .then(res => {
+                if (!res.ok) throw new Error("failed");
 
-    msg.style.color = "black";
-    msg.innerHTML =
-        "Thank you for sharing your email ID with us.<br>" +
-        "Our support team will have only email communication with registered email ID from " +
-        "<span style='color:green; font-weight:bold;'>support@rightfittalent.com</span>.";
+                msg.classList.remove('error');
+                msg.classList.add('success');
+                msg.innerHTML =
+                    "Thank you for sharing your email ID with us.<br>" +
+                    "Our support team will have only email communication with registered email ID from " +
+                    "<span style='color:#15803d; font-weight:bold;'>support@rightfittalent.com</span>.";
 
-    input.value = "";
-    hideMessage();        
-      setTimeout(() => {
-    window.location.reload();
-  }, 1500);
-})
-.catch(() => {
-  document.getElementById("email-msg").textContent =
-    "Submission failed. Try again.";    
-  setTimeout(() => {
-    window.location.reload();
-  }, 1500);    
-});
-}
-function hideMessage() {
-    setTimeout(() => {
-        document.getElementById("email-msg").style.display = "none";
-    }, 2500);
-}
+                input.value = "";
 
-/* ===== Enter key support ===== */
-document.getElementById("email-input").addEventListener("keydown", function (e) {
-    if (e.key === "Enter") {
-        submitEmail();
-    }
-});
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2500);
+            })
+            .catch(() => {
+                msg.classList.remove('success');
+                msg.classList.add('error');
+                msg.textContent = "Submission failed. Try again.";
 
-/* ===== Button click ===== */
-document.getElementById("submit-email").addEventListener("click", submitEmail);
-</script>
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2500);
+            });
+        }
+
+        // Enter key support
+        document.getElementById("email-input").addEventListener("keydown", function (e) {
+            if (e.key === "Enter") {
+                submitEmail();
+            }
+        });
+
+        // Button click
+        document.getElementById("submit-email").addEventListener("click", function(e) {
+            e.preventDefault();
+            submitEmail();
+        });
+    </script>
 
 </body>
 </html>
